@@ -7,11 +7,15 @@
 
 import UIKit
 
-enum numbers: Int, CaseIterable {
-    case zero = 0, one, two, three, four, five, six, seven, eight, nine
+protocol MVPinPadDelegate: AnyObject {
+    func validatePassword(_ password: String)
 }
 
 class MVPinPad: UIView {
+    
+    enum numbers: Int, CaseIterable {
+        case zero = 0, one, two, three, four, five, six, seven, eight, nine
+    }
     
     var passwordTextField: UITextField = {
         let textField = UITextField(frame: .zero)
@@ -28,6 +32,7 @@ class MVPinPad: UIView {
         var numericKey = [MVKey]()
         for number in numbers.allCases {
             let key = MVKey(keyText: String(describing: number.rawValue))
+            key.tag = number.rawValue
             key.delegate = self
             numericKey.append(key)
         }
@@ -42,19 +47,9 @@ class MVPinPad: UIView {
         return stackView
     }()
     
-    private var _password = "1234"
+    weak var delegate: MVPinPadDelegate?
     
-    var enteredPassword: String = "" {
-        didSet {
-            if enteredPassword.count > 3 {
-                if _password == enteredPassword {
-                    print("SUCCESS!!!")
-                } else {
-                    print("ERROR!!!")
-                }
-            }
-        }
-    }
+    var enteredPassword = ""
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -84,8 +79,15 @@ class MVPinPad: UIView {
             case 3:
                 keyPadColumn.addArrangedSubviews(Array<MVKey>(keys[7...9]))
             case 4:
+                let empty = MVKey(keyText: "")
+                empty.isEnabled = false
+                empty.alpha = 0.0
+                
                 let delete = MVKey(keyImage: UIImage(systemName: "delete.left"))
-                keyPadColumn.addArrangedSubviews([keys[0], delete])
+                delete.tag = -1
+                delete.delegate = self
+                
+                keyPadColumn.addArrangedSubviews([empty, keys[0], delete])
             default:
                 break
             }
@@ -98,7 +100,7 @@ class MVPinPad: UIView {
             passwordTextField.trailingAnchor.constraint(equalTo: trailingAnchor),
             passwordTextField.heightAnchor.constraint(equalToConstant: 80),
             
-            keyPadRows.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 40),
+            keyPadRows.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 30),
             keyPadRows.leadingAnchor.constraint(equalTo: leadingAnchor),
             keyPadRows.trailingAnchor.constraint(equalTo: trailingAnchor),
             keyPadRows.bottomAnchor.constraint(equalTo: bottomAnchor)
@@ -109,9 +111,17 @@ class MVPinPad: UIView {
 
 extension MVPinPad: MVKeyDelegate {
     func keyTapped(_ sender: UIButton) {
-        guard let tappedKey = sender.titleLabel?.text else { return }
-        passwordTextField.text?.append(tappedKey)
-        enteredPassword = passwordTextField.text!
+        switch sender.tag {
+        case 0...9:
+            guard let tappedNumber = sender.titleLabel?.text else { return }
+            passwordTextField.text?.append(tappedNumber)
+            enteredPassword += tappedNumber
+        default:
+            guard let password = passwordTextField.text, !password.isEmpty else { return }
+            passwordTextField.text?.removeLast()
+        }
+        
+        delegate?.validatePassword(enteredPassword)
     }
 }
 

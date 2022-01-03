@@ -9,14 +9,17 @@ import UIKit
 
 class MVPINViewController: UIViewController {
     
+    private var password = "2130"
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         let pinpad = MVPinPad(frame: .zero)
+        pinpad.delegate = self
         view.addSubview(pinpad)
         
         NSLayoutConstraint.activate([
-            pinpad.topAnchor.constraint(equalTo: view.centerYAnchor, constant: -100),
+            pinpad.topAnchor.constraint(lessThanOrEqualTo: view.centerYAnchor, constant: -90),
             pinpad.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 40),
             pinpad.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -40),
             pinpad.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10)
@@ -24,3 +27,10 @@ class MVPINViewController: UIViewController {
     }
 }
 
+extension MVPINViewController: MVPinPadDelegate {
+    func validatePassword(_ password: String) {
+        if self.password == password {
+            print("We're in!!!")
+        }
+    }
+}
