@@ -9,19 +9,25 @@
 /* Begin PBXBuildFile section */
 		1FF6C76D27827E5B0028995D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF6C76C27827E5B0028995D /* AppDelegate.swift */; };
 		1FF6C76F27827E5B0028995D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF6C76E27827E5B0028995D /* SceneDelegate.swift */; };
-		1FF6C77127827E5B0028995D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF6C77027827E5B0028995D /* ViewController.swift */; };
+		1FF6C77127827E5B0028995D /* MVPINViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF6C77027827E5B0028995D /* MVPINViewController.swift */; };
 		1FF6C77627827E5D0028995D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1FF6C77527827E5D0028995D /* Assets.xcassets */; };
 		1FF6C77927827E5D0028995D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1FF6C77727827E5D0028995D /* LaunchScreen.storyboard */; };
+		1FF6C781278281AC0028995D /* MVKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF6C780278281AC0028995D /* MVKey.swift */; };
+		1FF6C7832782A9350028995D /* MKPinPad.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF6C7822782A9350028995D /* MKPinPad.swift */; };
+		1FF6C7872782BC380028995D /* UIStackView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF6C7862782BC380028995D /* UIStackView+Ext.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		1FF6C76927827E5B0028995D /* MiniVault.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MiniVault.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1FF6C76C27827E5B0028995D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1FF6C76E27827E5B0028995D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		1FF6C77027827E5B0028995D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		1FF6C77027827E5B0028995D /* MVPINViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MVPINViewController.swift; sourceTree = "<group>"; };
 		1FF6C77527827E5D0028995D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1FF6C77827827E5D0028995D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1FF6C77A27827E5D0028995D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1FF6C780278281AC0028995D /* MVKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MVKey.swift; sourceTree = "<group>"; };
+		1FF6C7822782A9350028995D /* MKPinPad.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MKPinPad.swift; sourceTree = "<group>"; };
+		1FF6C7862782BC380028995D /* UIStackView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+Ext.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,14 +60,65 @@
 		1FF6C76B27827E5B0028995D /* MiniVault */ = {
 			isa = PBXGroup;
 			children = (
-				1FF6C76C27827E5B0028995D /* AppDelegate.swift */,
-				1FF6C76E27827E5B0028995D /* SceneDelegate.swift */,
-				1FF6C77027827E5B0028995D /* ViewController.swift */,
-				1FF6C77527827E5D0028995D /* Assets.xcassets */,
-				1FF6C77727827E5D0028995D /* LaunchScreen.storyboard */,
+				1FF6C78B2782C7340028995D /* Custom Views */,
+				1FF6C7882782C6CF0028995D /* Extensions */,
+				1FF6C78D2782C7720028995D /* Support */,
 				1FF6C77A27827E5D0028995D /* Info.plist */,
 			);
 			path = MiniVault;
+			sourceTree = "<group>";
+		};
+		1FF6C7882782C6CF0028995D /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				1FF6C7862782BC380028995D /* UIStackView+Ext.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		1FF6C7892782C6E30028995D /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				1FF6C77027827E5B0028995D /* MVPINViewController.swift */,
+			);
+			path = "View Controllers";
+			sourceTree = "<group>";
+		};
+		1FF6C78A2782C6FA0028995D /* Buttons */ = {
+			isa = PBXGroup;
+			children = (
+				1FF6C780278281AC0028995D /* MVKey.swift */,
+			);
+			path = Buttons;
+			sourceTree = "<group>";
+		};
+		1FF6C78B2782C7340028995D /* Custom Views */ = {
+			isa = PBXGroup;
+			children = (
+				1FF6C78C2782C7640028995D /* Views */,
+				1FF6C78A2782C6FA0028995D /* Buttons */,
+				1FF6C7892782C6E30028995D /* View Controllers */,
+			);
+			path = "Custom Views";
+			sourceTree = "<group>";
+		};
+		1FF6C78C2782C7640028995D /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				1FF6C7822782A9350028995D /* MKPinPad.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		1FF6C78D2782C7720028995D /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				1FF6C76C27827E5B0028995D /* AppDelegate.swift */,
+				1FF6C76E27827E5B0028995D /* SceneDelegate.swift */,
+				1FF6C77527827E5D0028995D /* Assets.xcassets */,
+				1FF6C77727827E5D0028995D /* LaunchScreen.storyboard */,
+			);
+			path = Support;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -134,8 +191,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1FF6C77127827E5B0028995D /* ViewController.swift in Sources */,
+				1FF6C7832782A9350028995D /* MKPinPad.swift in Sources */,
+				1FF6C77127827E5B0028995D /* MVPINViewController.swift in Sources */,
 				1FF6C76D27827E5B0028995D /* AppDelegate.swift in Sources */,
+				1FF6C7872782BC380028995D /* UIStackView+Ext.swift in Sources */,
+				1FF6C781278281AC0028995D /* MVKey.swift in Sources */,
 				1FF6C76F27827E5B0028995D /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
