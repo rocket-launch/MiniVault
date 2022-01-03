@@ -1,5 +1,5 @@
 //
-//  MKPinPad.swift
+//  MVPinPad.swift
 //  MiniVault
 //
 //  Created by Fabián Ferreira on 2022-01-03.
@@ -11,7 +11,7 @@ enum numbers: Int, CaseIterable {
     case zero = 0, one, two, three, four, five, six, seven, eight, nine
 }
 
-class MKPinPad: UIView {
+class MVPinPad: UIView {
     
     var passwordTextField: UITextField = {
         let textField = UITextField(frame: .zero)
@@ -107,7 +107,7 @@ class MKPinPad: UIView {
     }
 }
 
-extension MKPinPad: MVKeyDelegate {
+extension MVPinPad: MVKeyDelegate {
     func keyTapped(_ sender: UIButton) {
         guard let tappedKey = sender.titleLabel?.text else { return }
         passwordTextField.text?.append(tappedKey)

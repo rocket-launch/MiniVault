@@ -12,7 +12,7 @@ class MVPINViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
-        let pinpad = MKPinPad(frame: .zero)
+        let pinpad = MVPinPad(frame: .zero)
         view.addSubview(pinpad)
         
         NSLayoutConstraint.activate([

@@ -13,7 +13,7 @@
 		1FF6C77627827E5D0028995D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1FF6C77527827E5D0028995D /* Assets.xcassets */; };
 		1FF6C77927827E5D0028995D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1FF6C77727827E5D0028995D /* LaunchScreen.storyboard */; };
 		1FF6C781278281AC0028995D /* MVKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF6C780278281AC0028995D /* MVKey.swift */; };
-		1FF6C7832782A9350028995D /* MKPinPad.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF6C7822782A9350028995D /* MKPinPad.swift */; };
+		1FF6C7832782A9350028995D /* MVPinPad.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF6C7822782A9350028995D /* MVPinPad.swift */; };
 		1FF6C7872782BC380028995D /* UIStackView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF6C7862782BC380028995D /* UIStackView+Ext.swift */; };
 /* End PBXBuildFile section */
 
@@ -26,7 +26,7 @@
 		1FF6C77827827E5D0028995D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1FF6C77A27827E5D0028995D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1FF6C780278281AC0028995D /* MVKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MVKey.swift; sourceTree = "<group>"; };
-		1FF6C7822782A9350028995D /* MKPinPad.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MKPinPad.swift; sourceTree = "<group>"; };
+		1FF6C7822782A9350028995D /* MVPinPad.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MVPinPad.swift; sourceTree = "<group>"; };
 		1FF6C7862782BC380028995D /* UIStackView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+Ext.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -105,7 +105,7 @@
 		1FF6C78C2782C7640028995D /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				1FF6C7822782A9350028995D /* MKPinPad.swift */,
+				1FF6C7822782A9350028995D /* MVPinPad.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -191,7 +191,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1FF6C7832782A9350028995D /* MKPinPad.swift in Sources */,
+				1FF6C7832782A9350028995D /* MVPinPad.swift in Sources */,
 				1FF6C77127827E5B0028995D /* MVPINViewController.swift in Sources */,
 				1FF6C76D27827E5B0028995D /* AppDelegate.swift in Sources */,
 				1FF6C7872782BC380028995D /* UIStackView+Ext.swift in Sources */,
