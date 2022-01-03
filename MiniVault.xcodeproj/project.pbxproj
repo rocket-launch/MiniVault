@@ -16,6 +16,9 @@
 		1FF6C7832782A9350028995D /* MVPinPad.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF6C7822782A9350028995D /* MVPinPad.swift */; };
 		1FF6C7872782BC380028995D /* UIStackView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF6C7862782BC380028995D /* UIStackView+Ext.swift */; };
 		1FF6C78F278354D20028995D /* MVGalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF6C78E278354D20028995D /* MVGalleryViewController.swift */; };
+		1FF6C792278377220028995D /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF6C791278377220028995D /* NetworkManager.swift */; };
+		1FF6C79527837D1E0028995D /* MVPhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF6C79427837D1E0028995D /* MVPhotoCollectionViewCell.swift */; };
+		1FF6C798278382430028995D /* UILayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF6C797278382430028995D /* UILayout.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +33,9 @@
 		1FF6C7822782A9350028995D /* MVPinPad.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MVPinPad.swift; sourceTree = "<group>"; };
 		1FF6C7862782BC380028995D /* UIStackView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+Ext.swift"; sourceTree = "<group>"; };
 		1FF6C78E278354D20028995D /* MVGalleryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MVGalleryViewController.swift; sourceTree = "<group>"; };
+		1FF6C791278377220028995D /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		1FF6C79427837D1E0028995D /* MVPhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MVPhotoCollectionViewCell.swift; sourceTree = "<group>"; };
+		1FF6C797278382430028995D /* UILayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILayout.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +70,7 @@
 			children = (
 				1FF6C78B2782C7340028995D /* Custom Views */,
 				1FF6C7882782C6CF0028995D /* Extensions */,
+				1FF6C796278382240028995D /* Utilities */,
 				1FF6C78D2782C7720028995D /* Support */,
 				1FF6C77A27827E5D0028995D /* Info.plist */,
 			);
@@ -81,8 +88,8 @@
 		1FF6C7892782C6E30028995D /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				1FF6C78E278354D20028995D /* MVGalleryViewController.swift */,
 				1FF6C77027827E5B0028995D /* MVPINViewController.swift */,
+				1FF6C78E278354D20028995D /* MVGalleryViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -98,8 +105,10 @@
 		1FF6C78B2782C7340028995D /* Custom Views */ = {
 			isa = PBXGroup;
 			children = (
+				1FF6C790278377120028995D /* Managers */,
 				1FF6C78C2782C7640028995D /* Views */,
 				1FF6C78A2782C6FA0028995D /* Buttons */,
+				1FF6C79327837CFD0028995D /* Cells */,
 				1FF6C7892782C6E30028995D /* View Controllers */,
 			);
 			path = "Custom Views";
@@ -122,6 +131,30 @@
 				1FF6C77727827E5D0028995D /* LaunchScreen.storyboard */,
 			);
 			path = Support;
+			sourceTree = "<group>";
+		};
+		1FF6C790278377120028995D /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				1FF6C791278377220028995D /* NetworkManager.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
+		1FF6C79327837CFD0028995D /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				1FF6C79427837D1E0028995D /* MVPhotoCollectionViewCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		1FF6C796278382240028995D /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				1FF6C797278382430028995D /* UILayout.swift */,
+			);
+			path = Utilities;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -198,7 +231,10 @@
 				1FF6C78F278354D20028995D /* MVGalleryViewController.swift in Sources */,
 				1FF6C77127827E5B0028995D /* MVPINViewController.swift in Sources */,
 				1FF6C76D27827E5B0028995D /* AppDelegate.swift in Sources */,
+				1FF6C792278377220028995D /* NetworkManager.swift in Sources */,
+				1FF6C798278382430028995D /* UILayout.swift in Sources */,
 				1FF6C7872782BC380028995D /* UIStackView+Ext.swift in Sources */,
+				1FF6C79527837D1E0028995D /* MVPhotoCollectionViewCell.swift in Sources */,
 				1FF6C781278281AC0028995D /* MVKey.swift in Sources */,
 				1FF6C76F27827E5B0028995D /* SceneDelegate.swift in Sources */,
 			);

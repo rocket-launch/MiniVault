@@ -36,7 +36,7 @@ extension MVPINViewController: MVPinPadDelegate {
     func validatePassword(_ password: String) -> Bool {
         if self.password == password {
             let gallery = MVGalleryViewController(collectionViewLayout: UICollectionViewLayout())
-            
+                                                  
             let navBar = UINavigationController(rootViewController: gallery)
             navBar.modalPresentationStyle = .fullScreen
             present(navBar, animated: true)
