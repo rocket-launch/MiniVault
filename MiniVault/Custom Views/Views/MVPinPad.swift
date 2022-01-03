@@ -8,7 +8,7 @@
 import UIKit
 
 protocol MVPinPadDelegate: AnyObject {
-    func validatePassword(_ password: String)
+    func validatePassword(_ password: String) -> Bool
 }
 
 class MVPinPad: UIView {
@@ -52,7 +52,7 @@ class MVPinPad: UIView {
     
     weak var delegate: MVPinPadDelegate?
     
-    var enteredPassword = ""
+    private var enteredPassword = ""
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -119,7 +119,10 @@ extension MVPinPad: MVKeyDelegate {
             enteredPassword.removeLast()
         }
         
-        delegate?.validatePassword(enteredPassword)
+        if let isPassword = delegate?.validatePassword(enteredPassword), isPassword {
+            passwordTextField.text = ""
+            enteredPassword = ""
+        }
     }
 }
 

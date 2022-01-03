@@ -9,11 +9,15 @@ import UIKit
 
 class MVPINViewController: UIViewController {
     
-    private var password = "2130"
+    private var password = "1234"
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
+        configurePinPad()
+    }
+    
+    func configurePinPad() {
         let pinpad = MVPinPad(frame: .zero)
         pinpad.delegate = self
         view.addSubview(pinpad)
@@ -29,9 +33,16 @@ class MVPINViewController: UIViewController {
 }
 
 extension MVPINViewController: MVPinPadDelegate {
-    func validatePassword(_ password: String) {
+    func validatePassword(_ password: String) -> Bool {
         if self.password == password {
-            print("We're in!!!")
+            let gallery = MVGalleryViewController(collectionViewLayout: UICollectionViewLayout())
+            
+            let navBar = UINavigationController(rootViewController: gallery)
+            navBar.modalPresentationStyle = .fullScreen
+            present(navBar, animated: true)
+            
+            return true
         }
+        return false
     }
 }

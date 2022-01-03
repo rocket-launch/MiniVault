@@ -15,6 +15,7 @@
 		1FF6C781278281AC0028995D /* MVKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF6C780278281AC0028995D /* MVKey.swift */; };
 		1FF6C7832782A9350028995D /* MVPinPad.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF6C7822782A9350028995D /* MVPinPad.swift */; };
 		1FF6C7872782BC380028995D /* UIStackView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF6C7862782BC380028995D /* UIStackView+Ext.swift */; };
+		1FF6C78F278354D20028995D /* MVGalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF6C78E278354D20028995D /* MVGalleryViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		1FF6C780278281AC0028995D /* MVKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MVKey.swift; sourceTree = "<group>"; };
 		1FF6C7822782A9350028995D /* MVPinPad.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MVPinPad.swift; sourceTree = "<group>"; };
 		1FF6C7862782BC380028995D /* UIStackView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+Ext.swift"; sourceTree = "<group>"; };
+		1FF6C78E278354D20028995D /* MVGalleryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MVGalleryViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +81,7 @@
 		1FF6C7892782C6E30028995D /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				1FF6C78E278354D20028995D /* MVGalleryViewController.swift */,
 				1FF6C77027827E5B0028995D /* MVPINViewController.swift */,
 			);
 			path = "View Controllers";
@@ -192,6 +195,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1FF6C7832782A9350028995D /* MVPinPad.swift in Sources */,
+				1FF6C78F278354D20028995D /* MVGalleryViewController.swift in Sources */,
 				1FF6C77127827E5B0028995D /* MVPINViewController.swift in Sources */,
 				1FF6C76D27827E5B0028995D /* AppDelegate.swift in Sources */,
 				1FF6C7872782BC380028995D /* UIStackView+Ext.swift in Sources */,
