@@ -14,24 +14,26 @@ protocol MVPinPadDelegate: AnyObject {
 class MVPinPad: UIView {
     
     enum numbers: Int, CaseIterable {
-        case zero = 0, one, two, three, four, five, six, seven, eight, nine
+        case zero = 0, one, two, three, four, five, six, seven, eight, nine, delete
     }
     
     var passwordTextField: UITextField = {
         let textField = UITextField(frame: .zero)
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.borderStyle = .none
-        textField.isSecureTextEntry = true
         textField.font = UIFont.systemFont(ofSize: 30, weight: .bold)
+        textField.minimumFontSize = 20
         textField.textAlignment = .center
         textField.textColor = .systemBlue
+        textField.isSecureTextEntry = true
+        textField.adjustsFontSizeToFitWidth = true
         return textField
     }()
     
     lazy var keys: [MVKey] = {
         var numericKey = [MVKey]()
         for number in numbers.allCases {
-            let key = MVKey(keyText: String(describing: number.rawValue))
+            let key = number.rawValue < 10 ? MVKey(keyText: String(describing: number.rawValue)) : MVKey(keyImage: UIImage(systemName: "delete.left"))
             key.tag = number.rawValue
             key.delegate = self
             numericKey.append(key)
@@ -39,11 +41,12 @@ class MVPinPad: UIView {
         return numericKey
     }()
     
-    lazy var keyPadRows: UIStackView = {
+    lazy var keyPadRowsStack: UIStackView = {
         let stackView = UIStackView(frame: .zero)
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         stackView.distribution = .equalSpacing
+        stackView.alignment = .trailing
         return stackView
     }()
     
@@ -62,48 +65,42 @@ class MVPinPad: UIView {
 
     private func configure() {
         addSubview(passwordTextField)
-        addSubview(keyPadRows)
+        addSubview(keyPadRowsStack)
         
         translatesAutoresizingMaskIntoConstraints = false
         
         for row in 1...4 {
-            let keyPadColumn = UIStackView(frame: .zero)
-            keyPadColumn.translatesAutoresizingMaskIntoConstraints = false
-            keyPadColumn.axis = .horizontal
-            keyPadColumn.distribution = .equalSpacing
+            let keyPadColumnStack = UIStackView(frame: .zero)
+            keyPadColumnStack.translatesAutoresizingMaskIntoConstraints = false
+            keyPadColumnStack.axis = .horizontal
+            keyPadColumnStack.distribution = .equalSpacing
+            keyPadColumnStack.spacing = 15
+            
             switch row {
             case 1:
-                keyPadColumn.addArrangedSubviews(Array<MVKey>(keys[1...3]))
+                keyPadColumnStack.addArrangedSubviews(Array<MVKey>(keys[1...3]))
             case 2:
-                keyPadColumn.addArrangedSubviews(Array<MVKey>(keys[4...6]))
+                keyPadColumnStack.addArrangedSubviews(Array<MVKey>(keys[4...6]))
             case 3:
-                keyPadColumn.addArrangedSubviews(Array<MVKey>(keys[7...9]))
+                keyPadColumnStack.addArrangedSubviews(Array<MVKey>(keys[7...9]))
             case 4:
-                let empty = MVKey(keyText: "")
-                empty.isEnabled = false
-                empty.alpha = 0.0
-                
-                let delete = MVKey(keyImage: UIImage(systemName: "delete.left"))
-                delete.tag = -1
-                delete.delegate = self
-                
-                keyPadColumn.addArrangedSubviews([empty, keys[0], delete])
+                keyPadColumnStack.addArrangedSubviews([keys[0], keys[10]])
             default:
                 break
             }
-            keyPadRows.addArrangedSubview(keyPadColumn)
+            keyPadRowsStack.addArrangedSubview(keyPadColumnStack)
         }
         
         NSLayoutConstraint.activate([
-            passwordTextField.topAnchor.constraint(equalTo: topAnchor),
-            passwordTextField.leadingAnchor.constraint(equalTo: leadingAnchor),
-            passwordTextField.trailingAnchor.constraint(equalTo: trailingAnchor),
-            passwordTextField.heightAnchor.constraint(equalToConstant: 80),
+            keyPadRowsStack.leadingAnchor.constraint(equalTo: leadingAnchor),
+            keyPadRowsStack.trailingAnchor.constraint(equalTo: trailingAnchor),
+            keyPadRowsStack.heightAnchor.constraint(equalToConstant: 350),
+            keyPadRowsStack.bottomAnchor.constraint(equalTo: bottomAnchor),
             
-            keyPadRows.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 30),
-            keyPadRows.leadingAnchor.constraint(equalTo: leadingAnchor),
-            keyPadRows.trailingAnchor.constraint(equalTo: trailingAnchor),
-            keyPadRows.bottomAnchor.constraint(equalTo: bottomAnchor)
+            passwordTextField.bottomAnchor.constraint(equalTo: keyPadRowsStack.topAnchor, constant: -100),
+            passwordTextField.centerXAnchor.constraint(equalTo: centerXAnchor),
+            passwordTextField.heightAnchor.constraint(equalToConstant: 80),
+            passwordTextField.widthAnchor.constraint(equalToConstant: 300),
         ])
         
     }
@@ -119,6 +116,7 @@ extension MVPinPad: MVKeyDelegate {
         default:
             guard let password = passwordTextField.text, !password.isEmpty else { return }
             passwordTextField.text?.removeLast()
+            enteredPassword.removeLast()
         }
         
         delegate?.validatePassword(enteredPassword)

@@ -19,9 +19,10 @@ class MVPINViewController: UIViewController {
         view.addSubview(pinpad)
         
         NSLayoutConstraint.activate([
-            pinpad.topAnchor.constraint(lessThanOrEqualTo: view.centerYAnchor, constant: -90),
-            pinpad.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 40),
-            pinpad.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -40),
+            pinpad.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            pinpad.topAnchor.constraint(equalTo: view.topAnchor),
+            pinpad.leadingAnchor.constraint(greaterThanOrEqualTo: view.leadingAnchor, constant: 10),
+            pinpad.trailingAnchor.constraint(lessThanOrEqualTo: view.trailingAnchor, constant: -10),
             pinpad.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10)
         ])
     }
