@@ -68,6 +68,7 @@
 		1FF6C76B27827E5B0028995D /* MiniVault */ = {
 			isa = PBXGroup;
 			children = (
+				1FF6C7892782C6E30028995D /* View Controllers */,
 				1FF6C78B2782C7340028995D /* Custom Views */,
 				1FF6C7882782C6CF0028995D /* Extensions */,
 				1FF6C796278382240028995D /* Utilities */,
@@ -109,7 +110,6 @@
 				1FF6C78C2782C7640028995D /* Views */,
 				1FF6C78A2782C6FA0028995D /* Buttons */,
 				1FF6C79327837CFD0028995D /* Cells */,
-				1FF6C7892782C6E30028995D /* View Controllers */,
 			);
 			path = "Custom Views";
 			sourceTree = "<group>";

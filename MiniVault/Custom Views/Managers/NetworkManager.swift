@@ -15,6 +15,7 @@ class NetworkManager {
         case invalidResponse
     }
     
+    private let cache = NSCache<NSString, UIImage>()
     static let shared = NetworkManager()
     private let baseURL = "https://lit-earth-91645.herokuapp.com/images/"
     
@@ -41,6 +42,10 @@ class NetworkManager {
     }
     
     func downloadImage(from urlString: String) async throws -> UIImage? {
+        if let cachedImage = cache.object(forKey: urlString as NSString) {
+            return cachedImage
+        }
+        
         guard let url = URL(string: urlString) else {
             throw MVError.invalidURL
         }
@@ -53,6 +58,7 @@ class NetworkManager {
         
         guard let image = UIImage(data: data) else { return nil }
         
+        cache.setObject(image, forKey: urlString as NSString)
         return image
     }
 }

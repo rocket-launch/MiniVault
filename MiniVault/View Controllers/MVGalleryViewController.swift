@@ -10,21 +10,32 @@ import UIKit
 class MVGalleryViewController: UICollectionViewController {
     
     var imageURLs = [String]()
+    var images = [UIImage?]()
+    var page = 2
 
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViewController()
         configureCollectionView()
+        setBackgroundNotification()
         
         Task {
-            do {
-                imageURLs = try await NetworkManager.shared.fetchImageURLs(for: 3)
-                print(imageURLs)
-                collectionView.reloadData()
-            } catch {
-                print(error.localizedDescription)
-            }
+            await fetchImages(for: page)
+            collectionView.reloadData()
         }
+    }
+    
+    func fetchImages(for page: Int) async {
+        do {
+            imageURLs += try await NetworkManager.shared.fetchImageURLs(for: page)
+        } catch {
+            print(error)
+        }
+    }
+    
+    func setBackgroundNotification() {
+        let notificationCenter = NotificationCenter.default
+        notificationCenter.addObserver(self, selector: #selector(close), name: UIApplication.willResignActiveNotification, object: nil)
     }
     
     func configureCollectionView() {
@@ -34,6 +45,7 @@ class MVGalleryViewController: UICollectionViewController {
     
     func configureViewController() {
         view.backgroundColor = .systemBackground
+        modalTransitionStyle = .crossDissolve
         title = "Gallery"
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(close))
     }
@@ -55,5 +67,22 @@ extension MVGalleryViewController {
         }
         cell.setImage(for: imageURLs[indexPath.item])
         return cell
+    }
+}
+
+extension MVGalleryViewController {
+    override func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        let offsetY = scrollView.contentOffset.y
+        let contentHeight = scrollView.contentSize.height
+        let height = scrollView.frame.height
+        
+        #warning("Check and re-implement logic.")
+        if offsetY > (contentHeight - height * 1.5) {
+            page += 1
+            Task {
+                await fetchImages(for: page)
+                collectionView.reloadData()
+            }
+        }
     }
 }
