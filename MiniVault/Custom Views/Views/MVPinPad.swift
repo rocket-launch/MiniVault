@@ -17,14 +17,18 @@ class MVPinPad: UIView {
         case zero = 0, one, two, three, four, five, six, seven, eight, nine, delete
     }
     
-    var passwordTextField: UITextField = {
+    let color: UIColor = {
+        return [.systemPink, .systemYellow, .systemBlue, .systemRed, .systemGreen].randomElement() ?? UIColor.systemBlue
+    }()
+    
+    lazy var passwordTextField: UITextField = {
         let textField = UITextField(frame: .zero)
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.borderStyle = .none
         textField.font = UIFont.systemFont(ofSize: 30, weight: .bold)
         textField.minimumFontSize = 20
         textField.textAlignment = .center
-        textField.textColor = .systemBlue
+        textField.textColor = color
         textField.isSecureTextEntry = true
         textField.adjustsFontSizeToFitWidth = true
         return textField
@@ -33,7 +37,7 @@ class MVPinPad: UIView {
     lazy var keys: [MVKey] = {
         var numericKey = [MVKey]()
         for number in numbers.allCases {
-            let key = number.rawValue < 10 ? MVKey(keyText: String(describing: number.rawValue)) : MVKey(keyImage: UIImage(systemName: "delete.left"))
+            let key = number.rawValue < 10 ? MVKey(keyText: String(describing: number.rawValue), color: color) : MVKey(keyImage: UIImage(systemName: "delete.left"), color: color)
             key.tag = number.rawValue
             key.delegate = self
             numericKey.append(key)

@@ -11,7 +11,7 @@ class MVGalleryViewController: UICollectionViewController {
     
     var imageURLs = [String]()
     var images = [UIImage?]()
-    var page = 2
+    var page = 1
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,6 +25,11 @@ class MVGalleryViewController: UICollectionViewController {
         }
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        navigationController?.hidesBarsOnTap = false
+    }
+    
     func fetchImages(for page: Int) async {
         do {
             imageURLs += try await NetworkManager.shared.fetchImageURLs(for: page)
@@ -35,7 +40,7 @@ class MVGalleryViewController: UICollectionViewController {
     
     func setBackgroundNotification() {
         let notificationCenter = NotificationCenter.default
-        notificationCenter.addObserver(self, selector: #selector(close), name: UIApplication.willResignActiveNotification, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(close), name: UIApplication.didEnterBackgroundNotification, object: nil)
     }
     
     func configureCollectionView() {
@@ -67,6 +72,15 @@ extension MVGalleryViewController {
         }
         cell.setImage(for: imageURLs[indexPath.item])
         return cell
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let photoDetailVC = MVPhotoDetailViewController()
+        Task {
+            photoDetailVC.imageURL = imageURLs[indexPath.item]
+            photoDetailVC.modalPresentationStyle = .fullScreen
+            navigationController?.pushViewController(photoDetailVC, animated: true)
+        }
     }
 }
 

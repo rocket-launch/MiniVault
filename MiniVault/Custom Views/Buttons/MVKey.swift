@@ -15,6 +15,7 @@ class MVKey: UIButton {
     
     var keyText: AttributedString?
     var keyImage: UIImage?
+    var color: UIColor?
     
     weak var delegate: MVKeyDelegate?
 
@@ -26,14 +27,16 @@ class MVKey: UIButton {
         fatalError("init(coder:) has not been implemented")
     }
     
-    convenience init(keyText: String) {
+    convenience init(keyText: String, color: UIColor) {
         self.init(frame: .zero)
+        self.color = color
         self.keyText = AttributedString(keyText, attributes: AttributeContainer([.font: UIFont.systemFont(ofSize: 25, weight: .medium)]))
         configure()
     }
     
-    convenience init(keyImage: UIImage?) {
+    convenience init(keyImage: UIImage?, color: UIColor) {
         self.init(frame: .zero)
+        self.color = color
         self.keyImage = keyImage
         configure()
     }
@@ -43,8 +46,8 @@ class MVKey: UIButton {
         
         configuration = .tinted()
         configuration?.cornerStyle = .capsule
-        configuration?.baseBackgroundColor = .systemBlue
-        configuration?.baseForegroundColor = .systemBlue
+        configuration?.baseBackgroundColor = color
+        configuration?.baseForegroundColor = color
         configuration?.attributedTitle = keyText
         configuration?.image = keyImage
             
