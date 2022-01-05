@@ -8,35 +8,72 @@
 import UIKit
 
 class MVPhotoDetailViewController: UIViewController {
+
+    var images: [UIImage]!
+    var indexPath: IndexPath!
     
-    let imageView = UIImageView()
-    var imageURL: String!
+    lazy var collectionView: UICollectionView = {
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UILayout.createSingleColumnFlowLayout(in: self.view))
+        collectionView.register(MVPhotoCollectionViewCell.self, forCellWithReuseIdentifier: MVPhotoCollectionViewCell.reuseID)
+        collectionView.isPagingEnabled = true
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        
+        return collectionView
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViewController()
-        configureImageView()
-        
-        // Only downloads images that aren't already cached.
-        Task {
-            imageView.image = try await NetworkManager.shared.downloadImage(from: imageURL)
-        }
+        configureCollectionView()
+        scrollToItem(at: indexPath)
     }
+    
     
     func configureViewController() {
         view.backgroundColor = .systemBackground
         navigationController?.hidesBarsOnTap = true
     }
-    func configureImageView() {
-        view.addSubview(imageView)
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.contentMode = .scaleAspectFit
+    
+    func configureCollectionView() {
+        view.addSubview(collectionView)
+        collectionView.contentMode = .scaleAspectFit
         
         NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            imageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            imageView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            imageView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            collectionView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            collectionView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            collectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            collectionView.heightAnchor.constraint(equalToConstant: 300)
         ])
+    }
+    
+    func scrollToItem(at indexPath: IndexPath) {
+        collectionView.layoutIfNeeded()
+        collectionView.scrollToItem(at: indexPath, at: .right, animated: true)
+    }
+}
+
+extension MVPhotoDetailViewController: UICollectionViewDataSource {
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return images.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MVPhotoCollectionViewCell.reuseID, for: indexPath) as? MVPhotoCollectionViewCell else {
+            preconditionFailure()
+        }
+        
+        cell.setImage(for: images[indexPath.item])
+        return cell
+    }
+}
+
+extension MVPhotoDetailViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return collectionView.frame.size
     }
 }

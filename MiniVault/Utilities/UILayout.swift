@@ -19,6 +19,15 @@ struct UILayout {
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.sectionInset = UIEdgeInsets(top: padding, left: padding, bottom: padding, right: padding)
         flowLayout.itemSize = CGSize(width: itemWidth, height: itemWidth)
+        
         return flowLayout
+    }
+    
+    static func createSingleColumnFlowLayout(in view: UIView) -> UICollectionViewFlowLayout {
+        let flowlayout = UICollectionViewFlowLayout()
+        flowlayout.scrollDirection = .horizontal
+        flowlayout.minimumLineSpacing = 0
+        
+        return flowlayout
     }
 }
