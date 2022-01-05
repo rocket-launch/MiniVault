@@ -33,7 +33,7 @@ class MVPhotoCollectionViewCell: UICollectionViewCell {
     }
     
     func configure() {
-        addSubview(photoImageView)
+        contentView.addSubview(photoImageView)
         photoImageView.translatesAutoresizingMaskIntoConstraints = false
         // This just looks better than .scaleToFill
         photoImageView.contentMode = .scaleAspectFill
