@@ -17,8 +17,11 @@ class MVPhotoDetailViewController: UIViewController {
         collectionView.register(MVPhotoCollectionViewCell.self, forCellWithReuseIdentifier: MVPhotoCollectionViewCell.reuseID)
         collectionView.isPagingEnabled = true
         collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.showsHorizontalScrollIndicator = false
+        
         collectionView.dataSource = self
         collectionView.delegate = self
+        
         
         return collectionView
     }()
@@ -38,14 +41,12 @@ class MVPhotoDetailViewController: UIViewController {
     
     func configureCollectionView() {
         view.addSubview(collectionView)
-        collectionView.contentMode = .scaleAspectFit
-        
+
         NSLayoutConstraint.activate([
-            collectionView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            collectionView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             collectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            collectionView.heightAnchor.constraint(equalToConstant: 300)
         ])
     }
     

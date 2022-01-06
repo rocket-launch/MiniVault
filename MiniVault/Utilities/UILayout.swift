@@ -27,7 +27,6 @@ struct UILayout {
         let flowlayout = UICollectionViewFlowLayout()
         flowlayout.scrollDirection = .horizontal
         flowlayout.minimumLineSpacing = 0
-        
         return flowlayout
     }
 }
