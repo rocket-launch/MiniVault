@@ -92,11 +92,11 @@ extension MVGalleryViewController {
 extension MVGalleryViewController {
     override func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         let offsetY = scrollView.contentOffset.y
-        let contentHeight = scrollView.contentSize.height
         let height = scrollView.frame.height
         
-        #warning("Check and re-implement scroll to bottom logic.")
-        if offsetY > (contentHeight - height * 1.5), !isLoadingPage {
+        let contentHeight = scrollView.contentSize.height
+    
+        if (offsetY + height) > contentHeight, !isLoadingPage {
             page += 1
             isLoadingPage = true
             Task {
