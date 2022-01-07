@@ -94,7 +94,6 @@ class MVGalleryViewController: UICollectionViewController {
     
     @objc func close() {
         dismiss(animated: true)
-        print(photos.filter { $0.imageData != nil })
     }
     
     func setBackgroundNotification() {
