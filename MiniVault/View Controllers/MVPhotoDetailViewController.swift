@@ -39,6 +39,7 @@ class MVPhotoDetailViewController: UIViewController {
     }
     
     func scrollToItem(at indexPath: IndexPath) {
+
         collectionView.scrollToItem(at: indexPath, at: .right, animated: false)
     }
     

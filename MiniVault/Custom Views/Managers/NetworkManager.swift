@@ -61,18 +61,4 @@ class NetworkManager {
         cache.setObject(image, forKey: urlString as NSString)
         return image
     }
-    
-    func isReachable(url: String) async throws -> Bool {
-        guard let url = URL(string: url) else { return false }
-        var request = URLRequest(url: url)
-        request.httpMethod = "HEAD"
-        let (_, response) = try await URLSession.shared.data(for: request)
-        if let response = response as? HTTPURLResponse, response.statusCode != 200 {
-            print("doesn't exist \(response.statusCode)")
-            return false
-        } else {
-            print("exists")
-            return false
-        }
-    }
 }
