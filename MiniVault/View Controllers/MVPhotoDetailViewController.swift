@@ -9,7 +9,7 @@ import UIKit
 
 class MVPhotoDetailViewController: UIViewController {
 
-    var images: [UIImage]!
+    var photos: [Photo]!
     var indexPath: IndexPath!
     
     lazy var collectionView: UICollectionView = {
@@ -59,7 +59,7 @@ class MVPhotoDetailViewController: UIViewController {
 extension MVPhotoDetailViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return images.count
+        return photos.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -68,7 +68,7 @@ extension MVPhotoDetailViewController: UICollectionViewDataSource {
             preconditionFailure()
         }
         
-        cell.setImage(for: images[indexPath.item])
+        cell.setImage(for: photos[indexPath.item].imageData)
         return cell
     }
 }

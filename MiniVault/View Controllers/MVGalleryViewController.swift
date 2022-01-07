@@ -9,20 +9,28 @@ import UIKit
 
 class MVGalleryViewController: UICollectionViewController {
     
+    enum Section {
+        case main
+    }
+    var dataSource: UICollectionViewDiffableDataSource<Section, Photo>!
+    
     var imageURLs = [String]()
-    var images = [UIImage]()
+    var photos = [Photo]()
+    
     var page = 1
     var isLoadingPage = false
+    
+    var photoCellRegistration: UICollectionView.CellRegistration<MVGalleryCollectionViewCell, Photo>!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViewController()
         configureCollectionView()
+        configureDataSource()
         setBackgroundNotification()
         
         Task {
             await fetchImages(for: page)
-            collectionView.reloadData()
         }
     }
     
@@ -35,23 +43,48 @@ class MVGalleryViewController: UICollectionViewController {
         do {
             imageURLs = try await NetworkManager.shared.fetchImageURLs(for: page)
             for imageURL in imageURLs {
-                if let image = try? await NetworkManager.shared.downloadImage(from: imageURL) {
-                    images.append(image)
-                }
+                photos.append(Photo(imageURL: imageURL))
             }
+            updateData()
         } catch {
             print(error)
         }
     }
     
-    func setBackgroundNotification() {
-        let notificationCenter = NotificationCenter.default
-        notificationCenter.addObserver(self, selector: #selector(close), name: UIApplication.didEnterBackgroundNotification, object: nil)
+    func registerPhotoCell() {
+        photoCellRegistration =  UICollectionView.CellRegistration<MVGalleryCollectionViewCell, Photo> { cell, indexPath, photo in
+            Task {
+                if let image = try? await NetworkManager.shared.downloadImage(from: photo.imageURL) {
+                    photo.setImage(to: image)
+                    cell.setImage(with: image)
+                } else {
+                    self.photos.remove(at: indexPath.item)
+                    self.updateData()
+                }
+            }
+        }
+    }
+        
+    func configureDataSource() {
+        dataSource = UICollectionViewDiffableDataSource<Section, Photo>(collectionView: collectionView, cellProvider: { collectionView, indexPath, photo in
+            let cell = collectionView.dequeueConfiguredReusableCell(using: self.photoCellRegistration, for: indexPath, item: photo)
+            return cell
+        })
+    }
+    
+    func updateData() {
+        var snapshot = NSDiffableDataSourceSnapshot<Section, Photo>()
+        snapshot.appendSections([.main])
+        snapshot.appendItems(photos, toSection: .main)
+        DispatchQueue.main.async {
+            self.dataSource.applySnapshotUsingReloadData(snapshot)
+        }
+        
     }
     
     func configureCollectionView() {
-        collectionView.register(MVGalleryCollectionViewCell.self, forCellWithReuseIdentifier: MVGalleryCollectionViewCell.reuseID)
         collectionView.setCollectionViewLayout(UILayout.createThreeColumnFlowLayout(in: self.view), animated: true)
+        registerPhotoCell()
     }
     
     func configureViewController() {
@@ -63,26 +96,19 @@ class MVGalleryViewController: UICollectionViewController {
     
     @objc func close() {
         dismiss(animated: true)
+        print(photos.filter { $0.imageData != nil })
+    }
+    
+    func setBackgroundNotification() {
+        let notificationCenter = NotificationCenter.default
+        notificationCenter.addObserver(self, selector: #selector(close), name: UIApplication.didEnterBackgroundNotification, object: nil)
     }
 }
 
 extension MVGalleryViewController {
-    
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return images.count
-    }
-    
-    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MVGalleryCollectionViewCell.reuseID, for: indexPath) as? MVGalleryCollectionViewCell else {
-            preconditionFailure("Couldn't retrieve cell of type \(MVGalleryCollectionViewCell.self)")
-        }
-        cell.setImage(for: images[indexPath.item])
-        return cell
-    }
-    
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let photoDetailVC = MVPhotoDetailViewController()
-        photoDetailVC.images = images
+        photoDetailVC.photos = photos
         photoDetailVC.indexPath = indexPath
         photoDetailVC.modalPresentationStyle = .fullScreen
         navigationController?.pushViewController(photoDetailVC, animated: true)
@@ -101,7 +127,6 @@ extension MVGalleryViewController {
             isLoadingPage = true
             Task {
                 await fetchImages(for: page)
-                collectionView.reloadData()
                 isLoadingPage = false
             }
         }

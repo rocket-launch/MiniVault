@@ -9,7 +9,7 @@ import UIKit
 
 class MVPINViewController: UIViewController {
     
-    private var password = "1234"
+    private var password = "0"
     
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -21,6 +21,7 @@
 		1FF6C798278382430028995D /* UILayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF6C797278382430028995D /* UILayout.swift */; };
 		1FF6C79A2783C9720028995D /* MVPhotoDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF6C7992783C9720028995D /* MVPhotoDetailViewController.swift */; };
 		1FF6C7A12785457B0028995D /* MVPhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF6C7A02785457B0028995D /* MVPhotoCollectionViewCell.swift */; };
+		1FF6C7A82786C5890028995D /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF6C7A72786C5890028995D /* Photo.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,7 @@
 		1FF6C797278382430028995D /* UILayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILayout.swift; sourceTree = "<group>"; };
 		1FF6C7992783C9720028995D /* MVPhotoDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MVPhotoDetailViewController.swift; sourceTree = "<group>"; };
 		1FF6C7A02785457B0028995D /* MVPhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MVPhotoCollectionViewCell.swift; sourceTree = "<group>"; };
+		1FF6C7A72786C5890028995D /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +74,7 @@
 		1FF6C76B27827E5B0028995D /* MiniVault */ = {
 			isa = PBXGroup;
 			children = (
+				1FF6C7A62786C57D0028995D /* Models */,
 				1FF6C7892782C6E30028995D /* View Controllers */,
 				1FF6C78B2782C7340028995D /* Custom Views */,
 				1FF6C7882782C6CF0028995D /* Extensions */,
@@ -163,6 +166,14 @@
 			path = Utilities;
 			sourceTree = "<group>";
 		};
+		1FF6C7A62786C57D0028995D /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				1FF6C7A72786C5890028995D /* Photo.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -239,6 +250,7 @@
 				1FF6C79A2783C9720028995D /* MVPhotoDetailViewController.swift in Sources */,
 				1FF6C76D27827E5B0028995D /* AppDelegate.swift in Sources */,
 				1FF6C792278377220028995D /* NetworkManager.swift in Sources */,
+				1FF6C7A82786C5890028995D /* Photo.swift in Sources */,
 				1FF6C7A12785457B0028995D /* MVPhotoCollectionViewCell.swift in Sources */,
 				1FF6C798278382430028995D /* UILayout.swift in Sources */,
 				1FF6C7872782BC380028995D /* UIStackView+Ext.swift in Sources */,
