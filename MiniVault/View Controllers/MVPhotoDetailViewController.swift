@@ -9,19 +9,18 @@ import UIKit
 
 class MVPhotoDetailViewController: UIViewController {
 
-    var images: [UIImage]!
+    var photos: [Photo]!
     var indexPath: IndexPath!
+    var dataSource: UICollectionViewDiffableDataSource<Section, Photo>!
+    var photoCellRegistration: UICollectionView.CellRegistration<MVPhotoCollectionViewCell, Photo>!
     
     lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UILayout.createSingleColumnFlowLayout(in: self.view))
-        collectionView.register(MVPhotoCollectionViewCell.self, forCellWithReuseIdentifier: MVPhotoCollectionViewCell.reuseID)
         collectionView.isPagingEnabled = true
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.showsHorizontalScrollIndicator = false
-        
-        collectionView.dataSource = self
         collectionView.delegate = self
-        
+        collectionView.dataSource = dataSource
         
         return collectionView
     }()
@@ -30,13 +29,18 @@ class MVPhotoDetailViewController: UIViewController {
         super.viewDidLoad()
         configureViewController()
         configureCollectionView()
-        scrollToItem(at: indexPath)
+        configureDataSource()
+        updateData()
     }
-    
     
     func configureViewController() {
         view.backgroundColor = .systemBackground
         navigationController?.hidesBarsOnTap = true
+    }
+    
+    func scrollToItem(at indexPath: IndexPath) {
+
+        collectionView.scrollToItem(at: indexPath, at: .right, animated: false)
     }
     
     func configureCollectionView() {
@@ -48,28 +52,32 @@ class MVPhotoDetailViewController: UIViewController {
             collectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
         ])
-    }
-    
-    func scrollToItem(at indexPath: IndexPath) {
-        collectionView.layoutIfNeeded()
-        collectionView.scrollToItem(at: indexPath, at: .right, animated: true)
-    }
-}
-
-extension MVPhotoDetailViewController: UICollectionViewDataSource {
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return images.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MVPhotoCollectionViewCell.reuseID, for: indexPath) as? MVPhotoCollectionViewCell else {
-            preconditionFailure()
+        registerPhotoCell()
+    }
+    
+    func registerPhotoCell() {
+        photoCellRegistration = UICollectionView.CellRegistration<MVPhotoCollectionViewCell, Photo> { cell, indexPath, photo in
+            cell.setImage(for: photo.imageData)
         }
-        
-        cell.setImage(for: images[indexPath.item])
-        return cell
+    }
+    
+    func configureDataSource() {
+        dataSource = UICollectionViewDiffableDataSource<Section, Photo>(collectionView: collectionView, cellProvider: { collectionView, indexPath, photo in
+            let cell = collectionView.dequeueConfiguredReusableCell(using: self.photoCellRegistration, for: indexPath, item: photo)
+            cell.setImage(for: photo.imageData)
+            return cell
+        })
+    }
+    
+    func updateData() {
+        var snapshot = NSDiffableDataSourceSnapshot<Section, Photo>()
+        snapshot.appendSections([.main])
+        snapshot.appendItems(photos, toSection: .main)
+        DispatchQueue.main.async {
+            self.dataSource.apply(snapshot, animatingDifferences: false)
+            self.scrollToItem(at: self.indexPath)
+        }
     }
 }
 
