@@ -9,9 +9,6 @@ import UIKit
 
 class MVGalleryViewController: UICollectionViewController {
     
-    enum Section {
-        case main
-    }
     var dataSource: UICollectionViewDiffableDataSource<Section, Photo>!
     
     var imageURLs = [String]()
@@ -20,7 +17,7 @@ class MVGalleryViewController: UICollectionViewController {
     var page = 1
     var isLoadingPage = false
     
-    var photoCellRegistration: UICollectionView.CellRegistration<MVGalleryCollectionViewCell, Photo>!
+    var galleryCellRegistration: UICollectionView.CellRegistration<MVGalleryCollectionViewCell, Photo>!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,8 +48,8 @@ class MVGalleryViewController: UICollectionViewController {
         }
     }
     
-    func registerPhotoCell() {
-        photoCellRegistration =  UICollectionView.CellRegistration<MVGalleryCollectionViewCell, Photo> { cell, indexPath, photo in
+    func registerGalleryCell() {
+        galleryCellRegistration =  UICollectionView.CellRegistration<MVGalleryCollectionViewCell, Photo> { cell, indexPath, photo in
             Task {
                 if let image = try? await NetworkManager.shared.downloadImage(from: photo.imageURL) {
                     photo.setImage(to: image)
@@ -67,7 +64,7 @@ class MVGalleryViewController: UICollectionViewController {
         
     func configureDataSource() {
         dataSource = UICollectionViewDiffableDataSource<Section, Photo>(collectionView: collectionView, cellProvider: { collectionView, indexPath, photo in
-            let cell = collectionView.dequeueConfiguredReusableCell(using: self.photoCellRegistration, for: indexPath, item: photo)
+            let cell = collectionView.dequeueConfiguredReusableCell(using: self.galleryCellRegistration, for: indexPath, item: photo)
             return cell
         })
     }
@@ -84,7 +81,8 @@ class MVGalleryViewController: UICollectionViewController {
     
     func configureCollectionView() {
         collectionView.setCollectionViewLayout(UILayout.createThreeColumnFlowLayout(in: self.view), animated: true)
-        registerPhotoCell()
+        collectionView.delegate = self
+        registerGalleryCell()
     }
     
     func configureViewController() {

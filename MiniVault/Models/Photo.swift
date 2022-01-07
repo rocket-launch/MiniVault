@@ -27,14 +27,4 @@ class Photo: Hashable {
     func setImage(to image: UIImage) {
         self.imageData = image
     }
-    
-    func setImage(for photo: Photo) async {
-        do {
-            let image = try await NetworkManager.shared.downloadImage(from: photo.imageURL)
-            photo.imageData = image
-        } catch {
-            print(error)
-        }
-        
-    }
 }

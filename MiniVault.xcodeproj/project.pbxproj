@@ -22,6 +22,7 @@
 		1FF6C79A2783C9720028995D /* MVPhotoDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF6C7992783C9720028995D /* MVPhotoDetailViewController.swift */; };
 		1FF6C7A12785457B0028995D /* MVPhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF6C7A02785457B0028995D /* MVPhotoCollectionViewCell.swift */; };
 		1FF6C7A82786C5890028995D /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF6C7A72786C5890028995D /* Photo.swift */; };
+		1FF6C7AC2787CCBC0028995D /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF6C7AB2787CCBC0028995D /* Section.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +43,7 @@
 		1FF6C7992783C9720028995D /* MVPhotoDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MVPhotoDetailViewController.swift; sourceTree = "<group>"; };
 		1FF6C7A02785457B0028995D /* MVPhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MVPhotoCollectionViewCell.swift; sourceTree = "<group>"; };
 		1FF6C7A72786C5890028995D /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
+		1FF6C7AB2787CCBC0028995D /* Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Section.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -162,6 +164,7 @@
 			isa = PBXGroup;
 			children = (
 				1FF6C797278382430028995D /* UILayout.swift */,
+				1FF6C7AB2787CCBC0028995D /* Section.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -247,6 +250,7 @@
 				1FF6C7832782A9350028995D /* MVPinPad.swift in Sources */,
 				1FF6C78F278354D20028995D /* MVGalleryViewController.swift in Sources */,
 				1FF6C77127827E5B0028995D /* MVPINViewController.swift in Sources */,
+				1FF6C7AC2787CCBC0028995D /* Section.swift in Sources */,
 				1FF6C79A2783C9720028995D /* MVPhotoDetailViewController.swift in Sources */,
 				1FF6C76D27827E5B0028995D /* AppDelegate.swift in Sources */,
 				1FF6C792278377220028995D /* NetworkManager.swift in Sources */,
