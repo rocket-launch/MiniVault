@@ -10,7 +10,6 @@ import UIKit
 
 class MVPhotoCollectionViewCell: UICollectionViewCell {
     
-    static let reuseID = "PhotoCell"
     var photoImageView = UIImageView(frame: .zero)
     
     override init(frame: CGRect) {
@@ -22,10 +21,8 @@ class MVPhotoCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setImage(for image: UIImage?) {
-        if let image = image {
-            photoImageView.image = image
-        }
+    func setImage(for image: UIImage) {
+        photoImageView.image = image
     }
     
     func configure() {

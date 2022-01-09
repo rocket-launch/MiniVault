@@ -20,6 +20,10 @@ class MVGalleryCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func prepareForReuse() {
+        photoImageView.image = nil
+    }
+    
     func setImage(with image: UIImage) {
         photoImageView.image = image
     }
@@ -30,6 +34,7 @@ class MVGalleryCollectionViewCell: UICollectionViewCell {
         // This just looks better than .scaleToFill
         photoImageView.contentMode = .scaleAspectFill
         photoImageView.clipsToBounds = true
+        photoImageView.image = UIImage(named: "blank")
         
         NSLayoutConstraint.activate([
             photoImageView.topAnchor.constraint(equalTo: contentView.topAnchor),

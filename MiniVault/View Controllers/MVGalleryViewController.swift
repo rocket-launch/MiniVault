@@ -51,8 +51,7 @@ class MVGalleryViewController: UICollectionViewController {
     func registerGalleryCell() {
         galleryCellRegistration =  UICollectionView.CellRegistration<MVGalleryCollectionViewCell, Photo> { cell, indexPath, photo in
             Task {
-                if let image = try? await NetworkManager.shared.downloadImage(from: photo.imageURL) {
-                    photo.setImage(to: image)
+                if let image = await photo.downloadImage() {
                     cell.setImage(with: image)
                 } else {
                     self.photos.remove(at: indexPath.item)

@@ -39,7 +39,6 @@ class MVPhotoDetailViewController: UIViewController {
     }
     
     func scrollToItem(at indexPath: IndexPath) {
-
         collectionView.scrollToItem(at: indexPath, at: .right, animated: false)
     }
     
@@ -58,14 +57,17 @@ class MVPhotoDetailViewController: UIViewController {
     
     func registerPhotoCell() {
         photoCellRegistration = UICollectionView.CellRegistration<MVPhotoCollectionViewCell, Photo> { cell, indexPath, photo in
-            cell.setImage(for: photo.imageData)
+            Task {
+                if let image = await photo.downloadImage() {
+                    cell.setImage(for: image)
+                }
+            }
         }
     }
     
     func configureDataSource() {
         dataSource = UICollectionViewDiffableDataSource<Section, Photo>(collectionView: collectionView, cellProvider: { collectionView, indexPath, photo in
             let cell = collectionView.dequeueConfiguredReusableCell(using: self.photoCellRegistration, for: indexPath, item: photo)
-            cell.setImage(for: photo.imageData)
             return cell
         })
     }

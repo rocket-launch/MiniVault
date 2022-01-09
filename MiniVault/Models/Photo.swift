@@ -10,7 +10,6 @@ import UIKit
 class Photo: Hashable {
     
     let imageURL: String
-    var imageData: UIImage?
     
     init(imageURL: String) {
         self.imageURL = imageURL
@@ -24,7 +23,7 @@ class Photo: Hashable {
         return lhs.imageURL == rhs.imageURL
     }
     
-    func setImage(to image: UIImage) {
-        self.imageData = image
+    func downloadImage() async -> UIImage? {
+        return try? await NetworkManager.shared.downloadImage(from: imageURL)
     }
 }
