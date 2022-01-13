@@ -7,9 +7,9 @@
 
 import UIKit
 
-class MVGalleryCollectionViewCell: UICollectionViewCell {
+final class MVGalleryCollectionViewCell: UICollectionViewCell {
     
-    var photoImageView = UIImageView(frame: .zero)
+    private var photoImageView = UIImageView(frame: .zero)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -28,7 +28,7 @@ class MVGalleryCollectionViewCell: UICollectionViewCell {
         photoImageView.image = image
     }
     
-    func configure() {
+    private func configure() {
         contentView.addSubview(photoImageView)
         photoImageView.translatesAutoresizingMaskIntoConstraints = false
         // This just looks better than .scaleToFill

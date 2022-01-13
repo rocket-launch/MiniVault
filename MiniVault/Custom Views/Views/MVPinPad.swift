@@ -11,17 +11,17 @@ protocol MVPinPadDelegate: AnyObject {
     func validatePassword(_ password: String) -> Bool
 }
 
-class MVPinPad: UIView {
+final class MVPinPad: UIView {
     
-    enum numbers: Int, CaseIterable {
+    private enum numbers: Int, CaseIterable {
         case zero = 0, one, two, three, four, five, six, seven, eight, nine, delete
     }
     
-    let color: UIColor = {
+    private let color: UIColor = {
         return [.systemPink, .systemYellow, .systemBlue, .systemRed, .systemGreen].randomElement() ?? UIColor.systemBlue
     }()
     
-    lazy var passwordTextField: UITextField = {
+    lazy private var passwordTextField: UITextField = {
         let textField = UITextField(frame: .zero)
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.borderStyle = .none
@@ -34,7 +34,7 @@ class MVPinPad: UIView {
         return textField
     }()
     
-    lazy var keys: [MVKey] = {
+    lazy private var keys: [MVKey] = {
         var numericKey = [MVKey]()
         for number in numbers.allCases {
             let key = number.rawValue < 10 ? MVKey(keyText: String(describing: number.rawValue), color: color) : MVKey(keyImage: UIImage(systemName: "delete.left"), color: color)
@@ -45,7 +45,7 @@ class MVPinPad: UIView {
         return numericKey
     }()
     
-    lazy var keyPadRowsStack: UIStackView = {
+    lazy private var keyPadRowsStack: UIStackView = {
         let stackView = UIStackView(frame: .zero)
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical

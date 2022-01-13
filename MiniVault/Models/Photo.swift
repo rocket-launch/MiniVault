@@ -7,9 +7,9 @@
 
 import UIKit
 
-class Photo: Hashable {
+final class Photo: Hashable {
     
-    let imageURL: String
+    private let imageURL: String
     
     init(imageURL: String) {
         self.imageURL = imageURL

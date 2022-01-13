@@ -7,7 +7,7 @@
 
 import UIKit
 
-class NetworkManager {
+final class NetworkManager {
     
     enum MVError: Swift.Error {
         case invalidURL

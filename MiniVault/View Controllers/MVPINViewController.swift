@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MVPINViewController: UIViewController {
+final class MVPINViewController: UIViewController {
     
     private var password = "1234"
     
@@ -17,7 +17,7 @@ class MVPINViewController: UIViewController {
         configurePinPad()
     }
     
-    func configurePinPad() {
+    private func configurePinPad() {
         let pinpad = MVPinPad(frame: .zero)
         pinpad.delegate = self
         view.addSubview(pinpad)

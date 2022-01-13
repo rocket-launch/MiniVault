@@ -8,9 +8,9 @@
 import Foundation
 import UIKit
 
-class MVPhotoCollectionViewCell: UICollectionViewCell {
+final class MVPhotoCollectionViewCell: UICollectionViewCell {
     
-    var photoImageView = UIImageView(frame: .zero)
+    private var photoImageView = UIImageView(frame: .zero)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -25,7 +25,7 @@ class MVPhotoCollectionViewCell: UICollectionViewCell {
         photoImageView.image = image
     }
     
-    func configure() {
+    private func configure() {
         contentView.addSubview(photoImageView)
 
         photoImageView.contentMode = .scaleAspectFit

@@ -11,11 +11,11 @@ protocol MVKeyDelegate: AnyObject {
     func keyTapped(_ sender: UIButton)
 }
 
-class MVKey: UIButton {
+final class MVKey: UIButton {
     
-    var keyText: AttributedString?
-    var keyImage: UIImage?
-    var color: UIColor?
+    private var keyText: AttributedString?
+    private var keyImage: UIImage?
+    private var color: UIColor?
     
     weak var delegate: MVKeyDelegate?
 
@@ -59,7 +59,7 @@ class MVKey: UIButton {
         addTarget(self, action: #selector(keyTapped(_:)), for: .touchUpInside)
     }
     
-    @objc func keyTapped(_ sender: UIButton) {
+    @objc private func keyTapped(_ sender: UIButton) {
         delegate?.keyTapped(sender)
     }
 }

@@ -7,14 +7,14 @@
 
 import UIKit
 
-class MVPhotoDetailViewController: UIViewController {
+final class MVPhotoDetailViewController: UIViewController {
 
     var photos: [Photo]!
     var indexPath: IndexPath!
-    var dataSource: UICollectionViewDiffableDataSource<Section, Photo>!
-    var photoCellRegistration: UICollectionView.CellRegistration<MVPhotoCollectionViewCell, Photo>!
+    private var dataSource: UICollectionViewDiffableDataSource<Section, Photo>!
+    private var photoCellRegistration: UICollectionView.CellRegistration<MVPhotoCollectionViewCell, Photo>!
     
-    lazy var collectionView: UICollectionView = {
+    lazy private var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UILayout.createSingleColumnFlowLayout(in: self.view))
         collectionView.isPagingEnabled = true
         collectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -33,16 +33,16 @@ class MVPhotoDetailViewController: UIViewController {
         updateData()
     }
     
-    func configureViewController() {
+    private func configureViewController() {
         view.backgroundColor = .systemBackground
         navigationController?.hidesBarsOnTap = true
     }
     
-    func scrollToItem(at indexPath: IndexPath) {
+    private func scrollToItem(at indexPath: IndexPath) {
         collectionView.scrollToItem(at: indexPath, at: .right, animated: false)
     }
     
-    func configureCollectionView() {
+    private func configureCollectionView() {
         view.addSubview(collectionView)
 
         NSLayoutConstraint.activate([
@@ -55,7 +55,7 @@ class MVPhotoDetailViewController: UIViewController {
         registerPhotoCell()
     }
     
-    func registerPhotoCell() {
+    private func registerPhotoCell() {
         photoCellRegistration = UICollectionView.CellRegistration<MVPhotoCollectionViewCell, Photo> { cell, indexPath, photo in
             Task {
                 if let image = await photo.downloadImage() {
@@ -65,14 +65,14 @@ class MVPhotoDetailViewController: UIViewController {
         }
     }
     
-    func configureDataSource() {
+    private func configureDataSource() {
         dataSource = UICollectionViewDiffableDataSource<Section, Photo>(collectionView: collectionView, cellProvider: { collectionView, indexPath, photo in
             let cell = collectionView.dequeueConfiguredReusableCell(using: self.photoCellRegistration, for: indexPath, item: photo)
             return cell
         })
     }
     
-    func updateData() {
+    private func updateData() {
         var snapshot = NSDiffableDataSourceSnapshot<Section, Photo>()
         snapshot.appendSections([.main])
         snapshot.appendItems(photos, toSection: .main)

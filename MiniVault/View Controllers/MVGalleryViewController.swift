@@ -7,17 +7,17 @@
 
 import UIKit
 
-class MVGalleryViewController: UICollectionViewController {
+final class MVGalleryViewController: UICollectionViewController {
     
-    var dataSource: UICollectionViewDiffableDataSource<Section, Photo>!
+    private var dataSource: UICollectionViewDiffableDataSource<Section, Photo>!
     
-    var imageURLs = [String]()
-    var photos = [Photo]()
+    private var imageURLs = [String]()
+    private var photos = [Photo]()
     
-    var page = 1
-    var isLoadingPage = false
+    private var page = 1
+    private var isLoadingPage = false
     
-    var galleryCellRegistration: UICollectionView.CellRegistration<MVGalleryCollectionViewCell, Photo>!
+    private var galleryCellRegistration: UICollectionView.CellRegistration<MVGalleryCollectionViewCell, Photo>!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,7 +36,7 @@ class MVGalleryViewController: UICollectionViewController {
         navigationController?.hidesBarsOnTap = false
     }
     
-    func fetchImages(for page: Int) async {
+    private func fetchImages(for page: Int) async {
         do {
             imageURLs = try await NetworkManager.shared.fetchImageURLs(for: page)
             for imageURL in imageURLs {
@@ -48,7 +48,7 @@ class MVGalleryViewController: UICollectionViewController {
         }
     }
     
-    func registerGalleryCell() {
+    private func registerGalleryCell() {
         galleryCellRegistration =  UICollectionView.CellRegistration<MVGalleryCollectionViewCell, Photo> { cell, indexPath, photo in
             Task {
                 if let image = await photo.downloadImage() {
@@ -61,14 +61,14 @@ class MVGalleryViewController: UICollectionViewController {
         }
     }
         
-    func configureDataSource() {
+    private func configureDataSource() {
         dataSource = UICollectionViewDiffableDataSource<Section, Photo>(collectionView: collectionView, cellProvider: { collectionView, indexPath, photo in
             let cell = collectionView.dequeueConfiguredReusableCell(using: self.galleryCellRegistration, for: indexPath, item: photo)
             return cell
         })
     }
     
-    func updateData() {
+    private func updateData() {
         var snapshot = NSDiffableDataSourceSnapshot<Section, Photo>()
         snapshot.appendSections([.main])
         snapshot.appendItems(photos, toSection: .main)
@@ -78,24 +78,24 @@ class MVGalleryViewController: UICollectionViewController {
         
     }
     
-    func configureCollectionView() {
+    private func configureCollectionView() {
         collectionView.setCollectionViewLayout(UILayout.createThreeColumnFlowLayout(in: self.view), animated: true)
         collectionView.delegate = self
         registerGalleryCell()
     }
     
-    func configureViewController() {
+    private func configureViewController() {
         view.backgroundColor = .systemBackground
         modalTransitionStyle = .crossDissolve
         title = "Gallery"
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(close))
     }
     
-    @objc func close() {
+    @objc private func close() {
         dismiss(animated: true)
     }
     
-    func setBackgroundNotification() {
+    private func setBackgroundNotification() {
         let notificationCenter = NotificationCenter.default
         notificationCenter.addObserver(self, selector: #selector(close), name: UIApplication.didEnterBackgroundNotification, object: nil)
     }
